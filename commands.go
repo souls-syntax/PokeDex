@@ -1,4 +1,4 @@
-package main
+package main 
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 type CliCommand struct {
 	Name					string
 	Description 	string
-	Callback			func(*config, *pokecache.Cache) error
+	Callback			func(*config, *pokecache.Cache, []string) error
 }
 
 func GetCommands() map[string]CliCommand { 
@@ -34,15 +34,36 @@ func GetCommands() map[string]CliCommand {
 			Description:	"Display the name previous of 20 Location",
 			Callback:			CommandMapBack,
 		},
+		"explore": {
+			Name:					"explore",
+			Description:	"Display the pokemon available in the area",
+			Callback:			CommandExplore,
+		},
+		"catch": {
+			Name:					"catch",
+			Description:	"Display the pokemon available in the area",
+			Callback:			CommandCatch,
+		},
+		"inspect": {
+			Name:					"inspect",
+			Description:	"Know about the pokemon you have catched",
+			Callback:			CommandInspect,
+		},
+		"pokedex": {
+			Name:					"pokedex",
+			Description:	"Know all the pokemon you have catched",
+			Callback:			CommandPokedex,
+		},
 	}
 }
-func CommandExit(cfg *config) error {
+
+func CommandExit(cfg *config, c *pokecache.Cache, args []string) error {
 	fmt.Println("Closing the Pokedex... Goodbye!")
 	os.Exit(0)
 	return nil
 }
 
-func CommandHelp(cfg *config) error {
+func CommandHelp(cfg *config, c *pokecache.Cache, args []string) error {
 	fmt.Println("Welcome to the Pokedex!")
 	fmt.Println("Usage:")
 	fmt.Println("")
